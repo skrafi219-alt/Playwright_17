@@ -3,6 +3,7 @@ const loginPayLoad={userEmail: "rafi.tgcs219@gmail.com", userPassword: "MBxanptF
 let token:any;
 let orderid:any;
 const createOrderPayLoad={orders: [{country: "Indonesia", productOrderedId: "6960eae1c941646b7a8b3ed3"}]};
+const fakePayLoad={"data":[],"message":"No Orders"};
 test.beforeAll(async ()=>{
 
     const apiContext=await request.newContext();
@@ -35,7 +36,23 @@ test("playwright api Test with UI", async ({page})=>{
 
     await page.goto("https://rahulshettyacademy.com/client");
 
+    await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/6a48b09085b8849b49c88b7f",async route =>{
+
+        const response=await page.request.fetch(route.request());
+        const body= JSON.stringify(fakePayLoad);
+
+        await route.fulfill({
+
+            response,
+            body,
+
+        });
+        
+    })
+    
+
     await page.locator('[routerlink="/dashboard/myorders"]').click();
+    
 
     
 });
