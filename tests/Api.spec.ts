@@ -35,9 +35,9 @@ test("playwright api Test with UI", async ({page})=>{
     },token);
 
     await page.goto("https://rahulshettyacademy.com/client");
-
+    
     await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/6a48b09085b8849b49c88b7f",async route =>{
-
+       
         const response=await page.request.fetch(route.request());
         const body= JSON.stringify(fakePayLoad);
 
@@ -50,8 +50,10 @@ test("playwright api Test with UI", async ({page})=>{
         
     })
     
-
+    
     await page.locator('[routerlink="/dashboard/myorders"]').click();
+    await page.waitForLoadState('networkidle');
+    //await page.pause();
     
 
     
