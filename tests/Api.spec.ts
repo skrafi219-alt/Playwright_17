@@ -37,5 +37,5 @@ test("playwright api Test with UI", async ({page})=>{
 
     await page.locator('[routerlink="/dashboard/myorders"]').click();
 
-    await page.pause();
+    
 });
